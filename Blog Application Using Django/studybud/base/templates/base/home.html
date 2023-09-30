@@ -1,0 +1,49 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<style>
+    .home-container{
+        display:grid;
+        grid-template-columns: 1fr 3fr;
+
+    }
+    .home-container {
+        background-color: #B0D9B1;
+    }
+    .right-side {
+    border: 8px solid #B0D9B1;
+    }
+    .left-side{
+        border: 8px solid #B0D9B1;
+    }
+</style>
+<div class="home-container">
+    <div class="right-side">
+        <h3>Browse Topics</h3>
+        <hr>
+        <a href="{% url 'home' %}">All</a>
+        {% for topic in topics%}
+        <div>
+            <a href="{% url 'home'%}?q={{topic.name}}">{{topic.name}}</a>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="left-side">
+        <h3>Home<h3>
+        <h5>{{room_count}} Blog's available</h5>
+        <a href="{% url 'create-room' %}">Create Blog</a><br>
+            <table>
+            <hr>
+            {% for room in rooms%}
+                <span>@{{room.host.username}}</span>
+                {% if room.host == request.user %}
+                <span><a href="{% url 'update-room' room.id %}">Edit</a> <a href="{% url 'delete-room' room.id %}">Delete Blog</a></span>
+                {% endif %}
+                <h3><a href="{% url 'room' room.id %}">{{room.name}} </a></h3>
+                <small>{{room.topic.name}}</small><br><br>
+            {% endfor %}
+                </table>
+    </div>
+</div>
+{% endblock %}

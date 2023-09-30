@@ -1,0 +1,48 @@
+{% comment %} {% load static %}  {% endcomment %}
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        {% load bootstrap5 %}
+        {% bootstrap_css %}
+        <style>
+            body{
+                border-block: 10px solid white;
+            }
+            .home-container {
+                background-color: #B0D9B1;
+            }
+        </style>
+    </head>
+    <body>
+      <div class='container'>
+        <div class='.home-container'>
+            {% include 'navbar.html'%}
+            {% if messages %}
+            <ul class="messages">
+            {% for message in messages%}
+            <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+            {% endif %}
+            {% block content %}
+            <h1>Room Template<h1>
+                <table>
+                {% for room in rooms%}
+                    <tr><h6>{{room.id}} -- <a href='/room/{{room.id}}'>{{room.name}} </a></h6><tr>
+                {% endfor %}
+                    </table>
+            {% endblock %}
+            </div>
+        </div>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        
+        {% comment %} <script src="" async defer></script> {% endcomment %}
+    </body>
+</html>
